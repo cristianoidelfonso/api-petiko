@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BuscaEnderecoCepController;
 use App\Http\Controllers\Api\ProdutoController;
+use App\Http\Controllers\Api\PedidoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,6 @@ Route::prefix('v1')->group(function() {
 
     Route::resource('produtos', ProdutoController::class);
 
-    Route::get('/pedidos', function(){ return 'Pedidos'; });
+    Route::resource('/pedidos', PedidoController::class);
 
 });
