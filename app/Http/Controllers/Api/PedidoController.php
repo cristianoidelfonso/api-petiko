@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Pedido;
 
 class PedidoController extends Controller
 {
@@ -15,18 +16,8 @@ class PedidoController extends Controller
      */
     public function index(Request $request)
     {
-        $users = User::get(['name', 'email']);
-        return response($request, 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $pedidos = Pedido::latest('created_at')->get(['nome', 'email', 'cpf', 'created_at']);
+        return response($pedidos, 200);
     }
 
     /**
@@ -37,7 +28,18 @@ class PedidoController extends Controller
      */
     public function store(Request $request)
     {
-        return response($request, 200);
+        $pedido = new Pedido;
+        $pedido->nome = $request->input('nome');
+        $pedido->email = $request->input('email');
+        $pedido->cpf = $request->input('cpf');
+
+        if($pedido->save()){
+            // return new PedidoResource( $pedido );
+            return response()->json([
+                'message' => 'Pedido cadastrado com sucesso',
+                'pedido' => $pedido
+            ], 201);
+        }
     }
 
     /**
@@ -47,17 +49,6 @@ class PedidoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }

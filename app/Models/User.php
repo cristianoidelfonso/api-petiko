@@ -42,4 +42,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+     // Um usuário possui muitos pedidos, ordenados em ordem decrescente
+    public function pedidos()
+    {
+        return $this->hasMany(Pedido::class)->latest();
+    }
 }
