@@ -4,19 +4,20 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePedidoRequest;
 use App\Models\User;
 use App\Models\Pedido;
 
 class PedidoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
+    public function __construct(public Pedido $pedido)
     {
-        $pedidos = Pedido::latest('created_at')->get(['nome', 'email', 'cpf', 'created_at']);
+
+    }
+
+    public function index()
+    {
+        $pedidos = Pedido::get(['nome', 'email', 'cpf', 'created_at']);
         return response($pedidos, 200);
     }
 
@@ -26,19 +27,15 @@ class PedidoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePedidoRequest $request)
     {
-        $pedido = new Pedido;
-        $pedido->nome = $request->input('nome');
-        $pedido->email = $request->input('email');
-        $pedido->cpf = $request->input('cpf');
+        try{
+            $data = $this->pedido->create($request->all());
+            return response()->json($data, 201);
 
-        if($pedido->save()){
-            // return new PedidoResource( $pedido );
-            return response()->json([
-                'message' => 'Pedido cadastrado com sucesso',
-                'pedido' => $pedido
-            ], 201);
+        }catch(\Throwable|\Exception $e){
+            return response()->json($e);
+            // return ResponseService::exception('pedido.store', null, $e);
         }
     }
 

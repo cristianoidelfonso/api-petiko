@@ -21,16 +21,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('v1')->group(function() {
-
-    Route::get('/', function() { return 'Hello world!'; });
-
+Route::group(['prefix' => 'v1'], function () {
+    // Route::get('/', function() { return 'Hello world!'; });
+    // Route::get('/clientes', function(){ return 'Clientes'; });
     Route::post('/endereco/{cep}',[BuscaEnderecoCepController::class, 'buscaEnderecoPorCep']);
-
-    Route::get('/clientes', function(){ return 'Clientes'; });
-
-    Route::resource('produtos', ProdutoController::class);
-
-    Route::resource('/pedidos', PedidoController::class);
-
+    Route::apiResources([
+        'pedidos' => PedidoController::class,
+        'produtos' => ProdutoController::class
+    ]);
 });

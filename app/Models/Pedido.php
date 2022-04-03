@@ -18,12 +18,12 @@ class Pedido extends Model
         'email',
         'cpf',
         'cep',
-        'rua',
+        'logradouro',
         'numero',
         'bairro',
         'complemento',
-        'cidade',
-        'estado',
+        'localidade',
+        'uf',
     ];
 
     // Um Pedido pertence a um usuário

@@ -21,12 +21,12 @@ return new class extends Migration
             $table->string('cpf');
 
             $table->string('cep');
-            $table->string('rua');
+            $table->string('logradouro');
             $table->string('numero');
             $table->string('bairro');
-            $table->string('complemento');
-            $table->string('cidade');
-            $table->string('estado');
+            $table->string('complemento')->nullable();
+            $table->string('localidade');
+            $table->string('uf');
 
             // $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             // $table->foreignId('produto_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
