@@ -21,7 +21,8 @@ class ProdutoFactory extends Factory
             'id' => Str::uuid(),
             'nome' => $this->faker->sentence($nbWords = 2, $variableNbWords = true),
             'preco' => $this->faker->randomFloat($nbMaxDecimals = 2, $min = 9, $max = 999), // 48.8932
-            'descricao' => $this->faker->paragraph($nbSentences = 3, $variableNbSentences = true),
+            'descricao' => $this->faker->paragraph($nbSentences = 2, $variableNbSentences = true),
+            'url' => 'produtos/'. $this->faker->image('public/storage/produtos', 640,480, null, false),
         ];
     }
 }
