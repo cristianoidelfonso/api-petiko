@@ -14,7 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $users = App\Models\User::latest()->get();
-    $produtos = App\Models\Produto::orderBy('nome', 'asc')->get();
-    return view('welcome', compact('users', 'produtos'));
+    return view('welcome');
 });

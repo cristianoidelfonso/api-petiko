@@ -34,8 +34,8 @@ class StorePedidoRequest extends FormRequest
     public function messages()
     {
         return [
-            'required'  => 'The field :attribute is required',
-            'email.exists' => 'Email não cadastrado'
+            'required'  => 'O campo :attribute é obrigatório.',
+            'email.exists' => 'Email não cadastrado.'
         ];
     }
 
